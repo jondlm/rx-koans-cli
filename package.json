@@ -1,0 +1,19 @@
+{
+  "name": "rx-koans-cli",
+  "version": "1.0.0",
+  "description": "A set of koans to help you learn RxJs",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/mocha/bin/mocha --watch --reporter dot lessons"
+  },
+  "keywords": [
+    "koans",
+    "rxjs"
+  ],
+  "author": "Jon de la Motte <jondlm@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "mocha": "^2.1.0",
+    "rx": "^2.3.22"
+  }
+}
