@@ -49,7 +49,7 @@ describe('lesson 4', function() {
     assert.equal(result, 'hell'/*TODO:underscore*/);
   });
 
-  it('ThrottlingEvents', function(done) {
+  it('throttling events', function(done) {
     var result = '';
     var subscription = Rx.Observable
       .fromEvent(emitter, 'data')

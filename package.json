@@ -1,7 +1,7 @@
 {
   "name": "rx-koans-cli",
   "version": "1.0.0",
-  "description": "A set of koans to help you learn RxJs",
+  "description": "A set of koans to help you learn RxJs from the command line",
   "main": "index.js",
   "scripts": {
     "test": "node_modules/mocha/bin/mocha --watch --reporter dot lessons"
