@@ -1,7 +1,12 @@
+//
+// Lesson 1
+// Observable streams
+//
+
 var Rx = require('rx');
 var assert = require('assert');
 
-describe('Lesson 1', function() {
+describe('lesson 1, observable streams: ', function() {
   it('SampleSubscription', function() {
     Rx.Observable
       .just(45)
@@ -46,7 +51,7 @@ describe('Lesson 1', function() {
     Rx.Observable
       .range(1, 7)
       .subscribe(function(d) {
-        result.push(d === 7 ? 'rest' : 'work'/*TODO:underscore*/)
+        result.push(d === 7 ? 'rest' : 'work'/*TODO:underscore*/);
       });
 
     assert.equal(result.join(' '), 'work work work work work work rest');
@@ -56,7 +61,7 @@ describe('Lesson 1', function() {
     var sum = 0;
     var numbers$ = Rx.Observable
       .range(1, 10)
-      .do(function(n) { sum += n; });
+      .tap(function(n) { sum += n; });
 
     assert.equal(sum, 0);
 
