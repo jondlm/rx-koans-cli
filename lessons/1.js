@@ -6,14 +6,14 @@
 var Rx = require('rx');
 var assert = require('assert');
 
-describe('lesson 1, observable streams: ', function() {
-  it('SampleSubscription', function() {
+describe('lesson 1', function() {
+  it('sample subscription', function() {
     Rx.Observable
       .just(45)
       .subscribe(function(x) { assert.equal(x, 45/*TODO:underscore*/); });
   });
 
-  it('SimpleReturn', function() {
+  it('simple return', function() {
     var result = '';
 
     Rx.Observable
@@ -23,7 +23,7 @@ describe('lesson 1, observable streams: ', function() {
     assert.equal(result, 'foo'/*TODO:underscore*/);
   });
 
-  it('TheLastEvent', function() {
+  it('the last event', function() {
     var result = '';
     var strings = ['foo','bar'];
 
@@ -34,7 +34,7 @@ describe('lesson 1, observable streams: ', function() {
     assert.equal(result, 'bar'/*TODO:underscore*/);
   });
 
-  it('EverythingCounts', function() {
+  it('everything counts', function() {
     var result = 0;
     var numbers = [1, 2, 3];
 
@@ -45,7 +45,7 @@ describe('lesson 1, observable streams: ', function() {
     assert.equal(result, 6/*TODO:underscore*/);
   });
 
-  it('RestOnSunday', function() {
+  it('rest on sunday', function() {
     var result = [];
 
     Rx.Observable
@@ -57,15 +57,15 @@ describe('lesson 1, observable streams: ', function() {
     assert.equal(result.join(' '), 'work work work work work work rest');
   });
 
-  it('NothingListensUntilYouSubscribe', function() {
+  it('nothing listens until you subscribe', function() {
     var sum = 0;
-    var numbers$ = Rx.Observable
+    var number$ = Rx.Observable
       .range(1, 10)
       .tap(function(n) { sum += n; });
 
     assert.equal(sum, 0);
 
-    numbers$.subscribe()/*TODO:underscore*/;
+    number$.subscribe()/*TODO:underscore*/;
 
     assert.equal(sum, 55);
   });

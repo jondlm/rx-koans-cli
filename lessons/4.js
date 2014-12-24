@@ -18,7 +18,7 @@ describe('lesson 4', function() {
     emitter = new TestEvent();
   });
 
-  it('SubscribingToEvents', function() {
+  it('subscribing to events', function() {
     var result = '';
     var subscription = Rx.Observable
       .fromEvent(emitter, 'data')
@@ -33,7 +33,7 @@ describe('lesson 4', function() {
     assert.equal(result, 'hello'/*TODO:underscore*/);
   });
 
-  it('DisposingOfSubscriptions', function() {
+  it('disposing of subscriptions', function() {
     var result = '';
     var subscription = Rx.Observable
       .fromEvent(emitter, 'data')
@@ -68,7 +68,7 @@ describe('lesson 4', function() {
     }, 20);
   });
 
-  it('FilteringEvents', function() {
+  it('filtering events', function() {
     var result = '';
     var subscription = Rx.Observable
       .fromEvent(emitter, 'data')
@@ -81,6 +81,6 @@ describe('lesson 4', function() {
     emitter.emit('data', 'l');
     emitter.emit('data', 'o');
 
-    assert.equal(result, 'll'/*TODO:underscore*/);
+    assert.equal(result, 'll');
   });
 });

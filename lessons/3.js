@@ -7,7 +7,7 @@ var Rx = require('rx');
 var assert = require('assert');
 
 describe('lesson 3', function() {
-  it('LaunchingAnActionInTheFuture', function(done) {
+  it('launching an action in the future', function(done) {
     var result = '';
     var delay = 10/*TODO:underscore*/;
 
@@ -22,7 +22,7 @@ describe('lesson 3', function() {
     }, 25);
   });
 
-  it('ImmediatelyLaunchingAnAction', function() {
+  it('immediately launching an action', function() {
     var result = '';
 
     Rx.Scheduler.immediate
@@ -31,7 +31,7 @@ describe('lesson 3', function() {
     assert.equal(result, 'done'/*TODO:underscore*/);
   });
 
-  it('LaunchingAnEventInTheFuture', function(done) {
+  it('launching an event in the future', function(done) {
     var result = '';
     var delay = 10/*TODO:underscore*/;
 
@@ -46,7 +46,7 @@ describe('lesson 3', function() {
     }, 25);
   });
 
-  it('AWatchedPot', function(done) {
+  it('a watched pot', function(done) {
     var result = '';
     var timeToBoil = 10;
     var timeout = 15/*TODO:underscore*/;
