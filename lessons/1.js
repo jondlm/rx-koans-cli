@@ -10,7 +10,7 @@ describe('lesson 1', function() {
   it('sample subscription', function() {
     Rx.Observable
       .just(45)
-      .subscribe(function(x) { assert.equal(x, 45/*TODO:underscore*/); });
+      .subscribe(function(x) { assert.equal(x, ________); });
   });
 
   it('simple return', function() {
@@ -20,7 +20,7 @@ describe('lesson 1', function() {
       .just('foo')
       .subscribe(function(x) { result = x; });
 
-    assert.equal(result, 'foo'/*TODO:underscore*/);
+    assert.equal(result, ________);
   });
 
   it('the last event', function() {
@@ -31,7 +31,7 @@ describe('lesson 1', function() {
       .fromArray(strings)
       .subscribe(function(x) { result = x; });
 
-    assert.equal(result, 'bar'/*TODO:underscore*/);
+    assert.equal(result, ________);
   });
 
   it('everything counts', function() {
@@ -42,7 +42,7 @@ describe('lesson 1', function() {
       .fromArray(numbers)
       .subscribe(function(x) { result += x; });
 
-    assert.equal(result, 6/*TODO:underscore*/);
+    assert.equal(result, ________);
   });
 
   it('rest on sunday', function() {
@@ -51,7 +51,7 @@ describe('lesson 1', function() {
     Rx.Observable
       .range(1, 7)
       .subscribe(function(d) {
-        result.push(d === 7 ? 'rest' : 'work'/*TODO:underscore*/);
+        result.push(d === 7 ? 'rest' : ________);
       });
 
     assert.equal(result.join(' '), 'work work work work work work rest');
@@ -65,7 +65,7 @@ describe('lesson 1', function() {
 
     assert.equal(sum, 0);
 
-    number$.subscribe()/*TODO:underscore*/;
+    number$.________();
 
     assert.equal(sum, 55);
   });

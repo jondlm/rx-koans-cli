@@ -30,7 +30,7 @@ describe('lesson 4', function() {
     emitter.emit('data', 'l');
     emitter.emit('data', 'o');
 
-    assert.equal(result, 'hello'/*TODO:underscore*/);
+    assert.equal(result, ________);
   });
 
   it('disposing of subscriptions', function() {
@@ -46,7 +46,7 @@ describe('lesson 4', function() {
     subscription.dispose();
     emitter.emit('data', 'o');
 
-    assert.equal(result, 'hell'/*TODO:underscore*/);
+    assert.equal(result, ________);
   });
 
   it('throttling events', function(done) {
@@ -63,7 +63,7 @@ describe('lesson 4', function() {
     emitter.emit('data', 'o');
 
     setTimeout(function() {
-      assert.equal(result, 'o'/*TODO:underscore*/);
+      assert.equal(result, ________);
       done();
     }, 20);
   });
@@ -72,7 +72,7 @@ describe('lesson 4', function() {
     var result = '';
     var subscription = Rx.Observable
       .fromEvent(emitter, 'data')
-      .filter(function(x) { return x === 'l'/*TODO:underscore*/; })
+      .filter(function(x) { return x === ________; })
       .subscribe(function(x) { result += x; });
 
     emitter.emit('data', 'h');

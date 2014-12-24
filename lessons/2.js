@@ -9,7 +9,7 @@ var assert = require('assert');
 describe('lesson 2', function() {
   it('composable addition', function() {
     var result = 0;
-    var numbers = [10, 100, 1000/*TODO:underscore*/];
+    var numbers = [10, 100, ________];
 
     Rx.Observable
       .fromArray(numbers)
@@ -31,7 +31,7 @@ describe('lesson 2', function() {
       .tap(function(n) { b += String(n); })
       .subscribe();
 
-    assert.equal(a, '123456'/*TODO:underscore*/);
+    assert.equal(a, ________);
     assert.equal(b, '246');
   });
 
@@ -41,7 +41,7 @@ describe('lesson 2', function() {
 
     Rx.Observable
       .fromArray(names)
-      .filter(function(name) { return name.length <= 3; /*TODO:underscore*/})
+      .filter(function(name) { return name.length <= ________})
       .subscribe(function(name) { result.push(name); });
 
     assert.equal(result.join(','), 'Jon,Joe');
@@ -53,7 +53,7 @@ describe('lesson 2', function() {
 
     Rx.Observable
       .fromArray(words)
-      .map(function(word) { return word.toLowerCase();/*TODO:underscore*/ })
+      .map(function(word) { return ________; })
       .subscribe(function(word) { result.push(word); });
 
     assert.equal(result.join(' '), 'we hope you are enjoying this');
@@ -67,7 +67,7 @@ describe('lesson 2', function() {
     // The `$` suffix is a naming convention for observable streams
     var relativeMouse$ = Rx.Observable
       .fromArray(mouseXMovements)
-      .map(function(x) { return x - windowTopX;/*TODO:underscore*/ });
+      .map(function(x) { return x - ________; });
 
     relativeMouse$
       .subscribe(function(x) { result.push(x); });
@@ -84,7 +84,7 @@ describe('lesson 2', function() {
       .every(function(x) { return x % 2 === 0; })
       .subscribe(function(x) { result = x; });
 
-    assert.equal(result, true/*TODO:underscore*/);
+    assert.equal(result, ________);
   });
 
   it('composition means the sum is greater than the parts', function() {
@@ -92,7 +92,7 @@ describe('lesson 2', function() {
 
     Rx.Observable
       .range(1,10)
-      .filter(function(x) { return x > 8/*TODO:underscore*/; })
+      .filter(function(x) { return x > ________; })
       .sum()
       .subscribe(function(x) { result = x; });
 

@@ -10,7 +10,7 @@ describe('lesson 5', function() {
   it('instant merging', function() {
     var result = [];
     var number$ = Rx.Observable.fromArray([1, 2, 3]);
-    var letter$ = Rx.Observable.fromArray(['a', 'b', 'c']/*TODO:underscore*/);
+    var letter$ = Rx.Observable.fromArray(________);
 
     number$
       .merge(letter$)
@@ -27,9 +27,9 @@ describe('lesson 5', function() {
     number$
       .merge(letter$)
       .subscribe(
-        function(x){ result.push(x); },                                                  // onNext
-        function() { },                                                                  // onError
-        function() { assert.equal(result.join(','), 'a,b,c,1,2,3'/*TODO:underscore*/); } // onCompleted
+        function(x){ result.push(x); },                          // onNext
+        function() { },                                          // onError
+        function() { assert.equal(result.join(','), ________); } // onCompleted
       );
   });
 
@@ -37,7 +37,7 @@ describe('lesson 5', function() {
     var odds = [];
     var evens = [];
     var number$ = Rx.Observable.range(1,10);
-    var grouped$ = number$.groupBy(function(n) { return n % 2/*TODO:underscore*/; });
+    var grouped$ = number$.groupBy(function(n) { return n % ________; });
 
     var odd$ = grouped$
       .filter(function(g) { return g.key === 1; })
@@ -61,7 +61,7 @@ describe('lesson 5', function() {
 
     grouped$.subscribe(function(g) {
       g.average()
-        .subscribe/*TODO:underscore*/(function(a) { averages[g.key] = a; });
+        .________(function(a) { averages[g.key] = a; });
     });
 
     assert.equal(averages[0], 10);
@@ -89,12 +89,23 @@ describe('lesson 5', function() {
                            // observable is finished
 
     assert.equal(sum, 6);
-    assert.equal(average, 1.5/*TODO:underscore*/);
+    assert.equal(average, ________);
   });
 
-  xit('sending and recieving with subjects', function() {
-    var number$ = Rx.Observable.fromArray([1, 2, 3]);
-    var letter$ = Rx.Observable.fromArray(['a', 'b', 'c']);
-    var combined$ = new Rx.Subject();
+  it('sending and recieving with subjects', function(done) {
+    var observer = Rx.Observer.create(
+      function(x) { assert.equal(x, 'hello'); done(); }
+    );
+
+    var observable = Rx.Observable.create(function(x) {
+      setTimeout(function() {
+        x.onNext('hello');
+        x.onCompleted();
+      }, 25);
+    });
+
+    var combined$ = new Rx.Subject(observer, observable);
+
+    combined$.________('hello');
   });
 });
