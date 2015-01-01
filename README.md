@@ -8,6 +8,7 @@ writing, the other version uses an old version of Rx.
 
 Usage:
 
+    npm install
     npm test
 
 This will run mocha tests and watch for file changes. You should get the tests
