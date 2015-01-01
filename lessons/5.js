@@ -92,9 +92,22 @@ describe('lesson 5', function() {
     assert.equal(average, 1.5/*TODO:underscore*/);
   });
 
-  xit('sending and recieving with subjects', function() {
-    var number$ = Rx.Observable.fromArray([1, 2, 3]);
-    var letter$ = Rx.Observable.fromArray(['a', 'b', 'c']);
-    var combined$ = new Rx.Subject();
+  it('sending and recieving with subjects', function(done) {
+    var observer = Rx.Observer.create(
+      function(x) { assert.equal(x, 'hello'); done(); },
+      function() { console.log('poo')},
+      function() { console.log('pee2')}
+    );
+
+    var observable = Rx.Observable.create(function(x) {
+      setTimeout(function() {
+        x.onNext('hello');
+        x.onCompleted();
+      }, 25);
+    });
+
+    var combined$ = new Rx.Subject(observer, observable);
+
+    combined$.onNext('hello');
   });
 });
