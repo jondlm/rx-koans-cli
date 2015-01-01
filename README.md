@@ -15,5 +15,10 @@ to pass by replacing `________` with the correct values. Once all the tests are
 passing, you win absolutely nothing, except for a bunch of grey dots and
 greater mental prowess.
 
+## Answers
+
+Checkout the `answers` branch for passing tests or see the `answers/README.md`
+file for the answer key.
+
 [rx]: https://github.com/Reactive-Extensions/RxJS
 
