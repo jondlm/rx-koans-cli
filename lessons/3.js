@@ -9,7 +9,7 @@ var assert = require('assert');
 describe('lesson 3', function() {
   it('launching an action in the future', function(done) {
     var result = '';
-    var delay = 10/*TODO:underscore*/;
+    var delay = 10;
 
     Rx.Scheduler.timeout
       .scheduleWithRelative(delay, function() { result = 'done'; });
@@ -28,12 +28,12 @@ describe('lesson 3', function() {
     Rx.Scheduler.immediate
       .schedule(function() { result = 'done'; });
 
-    assert.equal(result, 'done'/*TODO:underscore*/);
+    assert.equal(result, 'done');
   });
 
   it('launching an event in the future', function(done) {
     var result = '';
-    var delay = 10/*TODO:underscore*/;
+    var delay = 10;
 
     Rx.Observable
       .just('done', Rx.Scheduler.immediate)
@@ -49,7 +49,7 @@ describe('lesson 3', function() {
   it('a watched pot', function(done) {
     var result = '';
     var timeToBoil = 10;
-    var timeout = 15/*TODO:underscore*/;
+    var timeout = 15;
     var timeout$ = Rx.Observable.just('cold');
 
     Rx.Observable
