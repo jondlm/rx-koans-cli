@@ -94,18 +94,21 @@ describe('lesson 5', function() {
 
   it('sending and recieving with subjects', function(done) {
     var observer = Rx.Observer.create(
-      function(x) { assert.equal(x, 'hello'); done(); }
+      function(x) { assert.equal(x, 'outside'); }
     );
 
     var observable = Rx.Observable.create(function(x) {
       setTimeout(function() {
-        x.onNext('hello');
+        x.onNext('inside');
         x.onCompleted();
       }, 25);
     });
 
-    var combined$ = new Rx.Subject(observer, observable);
+    var combined$ = Rx.Subject.create(observer, observable);
 
-    combined$.________('hello');
+    combined$.________('outside');
+
+    combined$
+      .subscribe(function(x) { assert.equal(x, 'inside'); done(); });
   });
 });
