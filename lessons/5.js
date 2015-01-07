@@ -19,7 +19,7 @@ describe('lesson 5', function() {
     assert.equal(result.join(','), '1,a,2,b,3,c');
   });
 
-  it('delayed merging', function() {
+  it('delayed merging', function(done) {
     var result = [];
     var number$ = Rx.Observable.fromArray([1, 2, 3]).delay(10);
     var letter$ = Rx.Observable.fromArray(['a', 'b', 'c']);
@@ -27,9 +27,9 @@ describe('lesson 5', function() {
     number$
       .merge(letter$)
       .subscribe(
-        function(x){ result.push(x); },                                                  // onNext
-        function() { },                                                                  // onError
-        function() { assert.equal(result.join(','), 'a,b,c,1,2,3'); } // onCompleted
+        function(x){ result.push(x); },                                       // onNext
+        function() { },                                                       // onError
+        function() { assert.equal(result.join(','), 'a,b,c,1,2,3'); done(); } // onCompleted
       );
   });
 
