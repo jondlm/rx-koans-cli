@@ -69,4 +69,19 @@ describe('lesson 1', function() {
 
     assert.equal(sum, 55);
   });
+
+  it('starting with something different', function(done) {
+    var sum = 0;
+    var number$ = Rx.Observable
+      .range(1, 10)
+      .startWith('here, have some numbers')
+      .tap(function(n) { sum += n; });
+
+    number$
+      .take(1)
+      .subscribe(function(x) {
+        assert.equal(x, ________);
+        done();
+      });
+  });
 });

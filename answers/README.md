@@ -8,13 +8,14 @@ the last event                                      | 'bar'
 everything counts                                   | 6
 rest on sunday                                      | 'work'
 nothing listens until you subscribe                 | subscribe
+starting with something different                   | 'here, have some numbers'
 
 ## Lesson 2
 
 Name                                                | Answer
 --------------------------------------------------- | ------
 composable addition                                 | 1000
-composeable before and after                        | '123456'
+composable before and after                         | '123456'
 we wrote this                                       | 3
 converting events                                   | word.toLowerCase()
 creating a move relevant event stream               | windowTopX
@@ -49,5 +50,5 @@ grouping with composition                           | 2
 averaging over groups                               | subscribe
 multiple subscribers                                | 1.5
 sending and recieving with subjects                 | onNext
-
+combining the latest                                | 3
 
