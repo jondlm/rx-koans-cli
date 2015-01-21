@@ -111,4 +111,48 @@ describe('lesson 5', function() {
     combined$
       .subscribe(function(x) { assert.equal(x, 'inside'); done(); });
   });
+
+  // TODO: this example could be cleaned up with test schedulers
+  it('combining the latest', function(done) {
+    var result = [];
+    var number$ = Rx.Observable.fromArray([1, 2, 3]);
+    var letter$ = Rx.Observable.fromArray(['a', 'b', 'c']).delay(10);
+
+    // `combineLatest` only fires once all of its dependents have fired at
+    // least once
+    var latest$ = Rx.Observable.combineLatest(
+      number$,
+      letter$,
+      function(number, letter) {
+        return {
+          number: number,
+          letter: letter
+        };
+      }
+    );
+
+    // Take the first element
+    latest$
+      .take(1)
+      .subscribe(function(x) {
+        assert.deepEqual(x, { number: 3, letter: 'a' });
+      });
+
+    // Take the second element
+    latest$
+      .skip(1)
+      .take(1)
+      .subscribe(function(x) {
+        assert.deepEqual(x, { number: 3, letter: 'b' });
+      });
+
+    // Take the third element
+    latest$
+      .skip(2)
+      .take(1)
+      .subscribe(function(x) {
+        assert.deepEqual(x, { number: 3, letter: 'c' });
+        done();
+      });
+  });
 });

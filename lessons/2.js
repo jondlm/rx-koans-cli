@@ -19,7 +19,7 @@ describe('lesson 2', function() {
     assert.equal(result, 1110);
   });
 
-  it('composeable before and after', function() {
+  it('composable before and after', function() {
     var numbers = [1,2,3,4,5,6];
     var a = '';
     var b = '';
