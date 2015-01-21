@@ -5,7 +5,6 @@
 
 var Rx = require('rx');
 var assert = require('assert');
-var NOOP = function() {};
 
 describe('lesson 5', function() {
   it('instant merging', function() {
