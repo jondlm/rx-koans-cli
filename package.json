@@ -13,7 +13,7 @@
   "author": "Jon de la Motte <jondlm@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "mocha": "^2.1.0",
-    "rx": "^2.3.22"
+    "mocha": "^2.2.1",
+    "rx": "^2.4.3"
   }
 }
