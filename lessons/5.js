@@ -1,3 +1,5 @@
+'use strict';
+
 //
 // Lesson 5
 // Advanced streams
@@ -36,7 +38,7 @@ describe('lesson 5', function() {
   it('grouping with composition', function() {
     var odds = [];
     var evens = [];
-    var number$ = Rx.Observable.range(1,10);
+    var number$ = Rx.Observable.range(1, 10);
     var grouped$ = number$.groupBy(function(n) { return n % 2; });
 
     var odd$ = grouped$
@@ -114,12 +116,12 @@ describe('lesson 5', function() {
 
   // TODO: this example could be cleaned up with test schedulers
   it('combining the latest', function(done) {
-    var result = [];
     var number$ = Rx.Observable.fromArray([1, 2, 3]);
     var letter$ = Rx.Observable.fromArray(['a', 'b', 'c']).delay(10);
 
     // `combineLatest` only fires once all of its dependents have fired at
-    // least once
+    // least once. It fires any time any of the children fire and grabs the
+    // latest from each of them.
     var latest$ = Rx.Observable.combineLatest(
       number$,
       letter$,
@@ -152,6 +154,55 @@ describe('lesson 5', function() {
       .take(1)
       .subscribe(function(x) {
         assert.deepEqual(x, { number: 3, letter: 'c' });
+        done();
+      });
+  });
+
+  it('combining the latest when a single observable fires', function(done) {
+    var slow$ = Rx.Observable.range(1, 3).delay(15);
+    var fast$ = Rx.Observable.range(1, 3).delay(5);
+
+    var withLatest$ = slow$.withLatestFrom(
+      fast$,
+      function(slow, fast) {
+        return {
+          slow: slow,
+          fast: fast
+        };
+      }
+    );
+
+    // Take the first element
+    withLatest$
+      .take(1)
+      .subscribe(function(x) {
+        assert.deepEqual(x, { slow: 1, fast: 3 });
+      });
+
+    // Take the third element
+    withLatest$
+      .skip(2)
+      .take(1)
+      .subscribe(function(x) {
+        assert.deepEqual(x, { slow: 3, fast: 3 });
+        done();
+      });
+
+  });
+
+  it('throwing out old responses if a newer one comes in', function(done) {
+    var request$ = Rx.Observable.fromArray([true, false]);
+
+    var slow$ = Rx.Observable.just('slow').delay(20); // slow, but requested first
+    var fast$ = Rx.Observable.just('fast').delay(5);  // fast, but requested second
+
+    request$
+      .flatMapLatest(function(x) {
+        return x ? slow$ : fast$;
+      })
+      .subscribe(function(x) {
+        // Only called once
+        assert.equal(x, 'fast');
         done();
       });
   });
