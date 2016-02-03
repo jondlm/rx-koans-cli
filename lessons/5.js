@@ -1,9 +1,11 @@
+'use strict';
+
 //
 // Lesson 5
 // Advanced streams
 //
 
-var Rx = require('rx');
+var Rx = require('rxjs/Rx');
 var assert = require('assert');
 
 describe('lesson 5', function() {
@@ -16,7 +18,7 @@ describe('lesson 5', function() {
       .merge(letter$)
       .subscribe(function(x) { result.push(x); });
 
-    assert.equal(result.join(','), '1,a,2,b,3,c');
+    assert.equal(result.join(','), '1,2,3,a,b,c');
   });
 
   it('delayed merging', function(done) {
@@ -27,16 +29,16 @@ describe('lesson 5', function() {
     number$
       .merge(letter$)
       .subscribe(
-        function(x){ result.push(x); },                                   // onNext
-        function() { },                                                   // onError
-        function() { assert.equal(result.join(','), ________); done();  } // onCompleted
+        function(x){ result.push(x); },                                   // next
+        function() { },                                                   // error
+        function() { assert.equal(result.join(','), ________); done(); }  // complete
       );
   });
 
   it('grouping with composition', function() {
     var odds = [];
     var evens = [];
-    var number$ = Rx.Observable.range(1,10);
+    var number$ = Rx.Observable.range(1, 10);
     var grouped$ = number$.groupBy(function(n) { return n % ________; });
 
     var odd$ = grouped$
@@ -60,7 +62,17 @@ describe('lesson 5', function() {
     var grouped$ = number$.groupBy(function(n) { return n % 2; });
 
     grouped$.subscribe(function(g) {
-      g.average()
+      // `scan` and `map` together here simply do an average of the numbers
+      g
+        .scan(function(acc, n) {
+          return {
+            count: acc.count + 1,
+            sum: acc.sum + n
+          };
+        }, { count: 0, sum: 0 })
+        .map(function(sumObj) {
+          return sumObj.sum / sumObj.count;
+        })
         .________(function(a) { averages[g.key] = a; });
     });
 
@@ -74,52 +86,41 @@ describe('lesson 5', function() {
     var average = 0;
 
     number$
-      .sum()
+      .scan(function(acc, n) { return acc + n; }, 0)
       .subscribe(function(n) { sum = n; });
 
+    // `scan` and `map` together here simply do an average of the numbers
     number$
-      .average()
+      .scan(function(acc, n) {
+        return {
+          count: acc.count + 1,
+          sum: acc.sum + n
+        };
+      }, { count: 0, sum: 0 })
+      .map(function(sumObj) {
+        return sumObj.sum / sumObj.count;
+      })
       .subscribe(function(n) { average = n; });
 
-    number$.onNext(1);
-    number$.onNext(1);
-    number$.onNext(2);
-    number$.onNext(2);
-    number$.onCompleted(); // `sum` and `average` don't kick in until the
-                           // observable is finished
+    number$.next(1);
+    number$.next(1);
+    number$.next(2);
+    number$.next(2);
+    number$.complete(); // `sum` and `average` don't kick in until the
+                        // observable is finished
 
     assert.equal(sum, 6);
     assert.equal(average, ________);
   });
 
-  it('sending and recieving with subjects', function(done) {
-    var observer = Rx.Observer.create(
-      function(x) { assert.equal(x, 'outside'); }
-    );
-
-    var observable = Rx.Observable.create(function(x) {
-      setTimeout(function() {
-        x.onNext('inside');
-        x.onCompleted();
-      }, 25);
-    });
-
-    var combined$ = Rx.Subject.create(observer, observable);
-
-    combined$.________('outside');
-
-    combined$
-      .subscribe(function(x) { assert.equal(x, 'inside'); done(); });
-  });
-
   // TODO: this example could be cleaned up with test schedulers
   it('combining the latest', function(done) {
-    var result = [];
     var number$ = Rx.Observable.fromArray([1, 2, 3]);
     var letter$ = Rx.Observable.fromArray(['a', 'b', 'c']).delay(10);
 
     // `combineLatest` only fires once all of its dependents have fired at
-    // least once
+    // least once. It fires any time any of the children fire and grabs the
+    // latest from each of them.
     var latest$ = Rx.Observable.combineLatest(
       number$,
       letter$,
@@ -152,6 +153,55 @@ describe('lesson 5', function() {
       .take(1)
       .subscribe(function(x) {
         assert.deepEqual(x, { number: ________, letter: 'c' });
+        done();
+      });
+  });
+
+  it('combining the latest when a single observable fires', function(done) {
+    var slow$ = Rx.Observable.range(1, 3).delay(15);
+    var fast$ = Rx.Observable.range(1, 3).delay(5);
+
+    var withLatest$ = slow$.withLatestFrom(
+      fast$,
+      function(slow, fast) {
+        return {
+          slow: slow,
+          fast: fast
+        };
+      }
+    );
+
+    // Take the first element
+    withLatest$
+      .take(1)
+      .subscribe(function(x) {
+        assert.deepEqual(x, { slow: 1, fast: 3 });
+      });
+
+    // Take the third element
+    withLatest$
+      .skip(2)
+      .take(1)
+      .subscribe(function(x) {
+        assert.deepEqual(x, { slow: 3, fast: 3 });
+        done();
+      });
+
+  });
+
+  it('throwing out old responses if a newer one comes in', function(done) {
+    var request$ = Rx.Observable.fromArray([true, false]);
+
+    var slow$ = Rx.Observable.of('slow').delay(20); // slow, but requested first
+    var fast$ = Rx.Observable.of('fast').delay(5);  // fast, but requested second
+
+    request$
+      .switchMap(function(x) {
+        return x ? slow$ : fast$;
+      })
+      .subscribe(function(x) {
+        // Only called once
+        assert.equal(x, 'fast');
         done();
       });
   });
