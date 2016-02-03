@@ -3,7 +3,7 @@
 // Composable observations
 //
 
-var Rx = require('rx');
+var Rx = require('rxjs/Rx');
 var assert = require('assert');
 
 describe('lesson 2', function() {
@@ -13,7 +13,7 @@ describe('lesson 2', function() {
 
     Rx.Observable
       .fromArray(numbers)
-      .sum()
+      .scan(function(acc, x) { return acc + x; })
       .subscribe(function(x) { result = x; });
 
     assert.equal(result, 1110);
@@ -26,9 +26,9 @@ describe('lesson 2', function() {
 
     Rx.Observable
       .fromArray(numbers)
-      .tap(function(n) { a += String(n); })
+      .do(function(n) { a += String(n); })
       .filter(function(n) { return n % 2 === 0; })
-      .tap(function(n) { b += String(n); })
+      .do(function(n) { b += String(n); })
       .subscribe();
 
     assert.equal(a, '123456');
@@ -93,7 +93,7 @@ describe('lesson 2', function() {
     Rx.Observable
       .range(1,10)
       .filter(function(x) { return x > 8; })
-      .sum()
+      .scan(function(acc, x) { return acc + x; })
       .subscribe(function(x) { result = x; });
 
     assert.equal(result, 19);

@@ -3,21 +3,25 @@
 // Observable streams
 //
 
-var Rx = require('rx');
+var Rx = require('rxjs/Rx');
 var assert = require('assert');
 
 describe('lesson 1', function() {
   it('sample subscription', function() {
-    Rx.Observable
-      .just(45)
-      .subscribe(function(x) { assert.equal(x, 45); });
-  });
-
-  it('simple return', function() {
     var result = '';
 
     Rx.Observable
-      .just('foo')
+      .of(45)
+      .subscribe(function(x) { result = x });
+
+    assert.equal(result, 45);
+  });
+
+  it('simple of', function() {
+    var result = '';
+
+    Rx.Observable
+      .of('foo')
       .subscribe(function(x) { result = x; });
 
     assert.equal(result, 'foo');
@@ -61,7 +65,7 @@ describe('lesson 1', function() {
     var sum = 0;
     var number$ = Rx.Observable
       .range(1, 10)
-      .tap(function(n) { sum += n; });
+      .do(function(n) { sum += n; });
 
     assert.equal(sum, 0);
 
@@ -75,7 +79,7 @@ describe('lesson 1', function() {
     var number$ = Rx.Observable
       .range(1, 10)
       .startWith('here, have some numbers')
-      .tap(function(n) { sum += n; });
+      .do(function(n) { sum += n; });
 
     number$
       .take(1)
