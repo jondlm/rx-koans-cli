@@ -22,6 +22,7 @@ describe('lesson 5', function() {
   });
 
   it('delayed merging', function(done) {
+    this.timeout(50);
     var result = [];
     var number$ = Rx.Observable.fromArray([1, 2, 3]).delay(10);
     var letter$ = Rx.Observable.fromArray(['a', 'b', 'c']);
@@ -115,6 +116,7 @@ describe('lesson 5', function() {
 
   // TODO: this example could be cleaned up with test schedulers
   it('combining the latest', function(done) {
+    this.timeout(50);
     var number$ = Rx.Observable.fromArray([1, 2, 3]);
     var letter$ = Rx.Observable.fromArray(['a', 'b', 'c']).delay(10);
 
@@ -158,6 +160,7 @@ describe('lesson 5', function() {
   });
 
   it('combining the latest when a single observable fires', function(done) {
+    this.timeout(50);
     var slow$ = Rx.Observable.range(1, 3).delay(15);
     var fast$ = Rx.Observable.range(1, 3).delay(5);
 
@@ -183,13 +186,14 @@ describe('lesson 5', function() {
       .skip(2)
       .take(1)
       .subscribe(function(x) {
-        assert.deepEqual(x, { slow: 3, fast: 3 });
+        assert.deepEqual(x, { slow: 3, fast: ________ });
         done();
       });
 
   });
 
   it('throwing out old responses if a newer one comes in', function(done) {
+    this.timeout(50);
     var request$ = Rx.Observable.fromArray([true, false]);
 
     var slow$ = Rx.Observable.of('slow').delay(20); // slow, but requested first
@@ -201,7 +205,7 @@ describe('lesson 5', function() {
       })
       .subscribe(function(x) {
         // Only called once
-        assert.equal(x, 'fast');
+        assert.equal(x, ________);
         done();
       });
   });
