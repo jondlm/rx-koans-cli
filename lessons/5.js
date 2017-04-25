@@ -11,8 +11,8 @@ var assert = require('assert');
 describe('lesson 5', function() {
   it('instant merging', function() {
     var result = [];
-    var number$ = Rx.Observable.fromArray([1, 2, 3]);
-    var letter$ = Rx.Observable.fromArray(['a', 'b', 'c']);
+    var number$ = Rx.Observable.from([1, 2, 3]);
+    var letter$ = Rx.Observable.from(['a', 'b', 'c']);
 
     number$
       .merge(letter$)
@@ -23,8 +23,8 @@ describe('lesson 5', function() {
 
   it('delayed merging', function(done) {
     var result = [];
-    var number$ = Rx.Observable.fromArray([1, 2, 3]).delay(10);
-    var letter$ = Rx.Observable.fromArray(['a', 'b', 'c']);
+    var number$ = Rx.Observable.from([1, 2, 3]).delay(10);
+    var letter$ = Rx.Observable.from(['a', 'b', 'c']);
 
     number$
       .merge(letter$)
@@ -58,7 +58,7 @@ describe('lesson 5', function() {
 
   it('averaging over groups', function() {
     var averages = [0.0, 0.0];
-    var number$ = Rx.Observable.fromArray([10, 10, 19, 21, 10, 10]);
+    var number$ = Rx.Observable.from([10, 10, 19, 21, 10, 10]);
     var grouped$ = number$.groupBy(function(n) { return n % 2; });
 
     grouped$.subscribe(function(g) {
@@ -115,8 +115,8 @@ describe('lesson 5', function() {
 
   // TODO: this example could be cleaned up with test schedulers
   it('combining the latest', function(done) {
-    var number$ = Rx.Observable.fromArray([1, 2, 3]);
-    var letter$ = Rx.Observable.fromArray(['a', 'b', 'c']).delay(10);
+    var number$ = Rx.Observable.from([1, 2, 3]);
+    var letter$ = Rx.Observable.from(['a', 'b', 'c']).delay(10);
 
     // `combineLatest` only fires once all of its dependents have fired at
     // least once. It fires any time any of the children fire and grabs the
@@ -190,7 +190,7 @@ describe('lesson 5', function() {
   });
 
   it('throwing out old responses if a newer one comes in', function(done) {
-    var request$ = Rx.Observable.fromArray([true, false]);
+    var request$ = Rx.Observable.from([true, false]);
 
     var slow$ = Rx.Observable.of('slow').delay(20); // slow, but requested first
     var fast$ = Rx.Observable.of('fast').delay(5);  // fast, but requested second

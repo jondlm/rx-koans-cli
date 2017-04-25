@@ -12,7 +12,7 @@ describe('lesson 2', function() {
     var numbers = [10, 100, 1000];
 
     Rx.Observable
-      .fromArray(numbers)
+      .from(numbers)
       .scan(function(acc, x) { return acc + x; })
       .subscribe(function(x) { result = x; });
 
@@ -25,7 +25,7 @@ describe('lesson 2', function() {
     var b = '';
 
     Rx.Observable
-      .fromArray(numbers)
+      .from(numbers)
       .do(function(n) { a += String(n); })
       .filter(function(n) { return n % 2 === 0; })
       .do(function(n) { b += String(n); })
@@ -40,7 +40,7 @@ describe('lesson 2', function() {
     var names = ['Jon', 'Jameson', 'Joe', 'Franky', 'Suella'];
 
     Rx.Observable
-      .fromArray(names)
+      .from(names)
       .filter(function(name) { return name.length <= 3; })
       .subscribe(function(name) { result.push(name); });
 
@@ -52,7 +52,7 @@ describe('lesson 2', function() {
     var words = ['wE', 'hOpE', 'yOU', 'aRe', 'eNJoyIng', 'tHiS'];
 
     Rx.Observable
-      .fromArray(words)
+      .from(words)
       .map(function(word) { return word.toLowerCase(); })
       .subscribe(function(word) { result.push(word); });
 
@@ -66,7 +66,7 @@ describe('lesson 2', function() {
 
     // The `$` suffix is a naming convention for observable streams
     var relativeMouse$ = Rx.Observable
-      .fromArray(mouseXMovements)
+      .from(mouseXMovements)
       .map(function(x) { return x - windowTopX; });
 
     relativeMouse$
@@ -80,7 +80,7 @@ describe('lesson 2', function() {
     var numbers = [2, 4, 6, 8];
 
     Rx.Observable
-      .fromArray(numbers)
+      .from(numbers)
       .every(function(x) { return x % 2 === 0; })
       .subscribe(function(x) { result = x; });
 
