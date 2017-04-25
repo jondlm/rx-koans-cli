@@ -5,7 +5,8 @@
   "description": "A set of koans to help you learn RxJs from the command line",
   "main": "index.js",
   "scripts": {
-    "test": "chokidar 'lessons/*.js' -c 'mocha -t 100 lessons'"
+    "test": "jest",
+    "watch": "jest --watchAll"
   },
   "keywords": [
     "koans",
@@ -14,8 +15,7 @@
   "author": "Jon de la Motte <jondlm@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "chokidar-cli": "^1.2.0",
-    "mocha": "^2.4.5",
+    "jest": "^19.0.2",
     "rxjs": "^5.3.0"
   }
 }
