@@ -1,3 +1,4 @@
+jasmine.DEFAULT_TIMEOUT_INTERVAL = 250;
 //
 // Lesson 4
 // Listening to events

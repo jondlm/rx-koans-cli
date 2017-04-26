@@ -31,7 +31,7 @@ describe('lesson 3', function() {
     Rx.Observable
       .of('boiling')
       .delay(timeToBoil)
-      .timeout(timeout, timeout$)
+      .timeoutWith(timeout, timeout$)
       .subscribe(function(x) { result = x; });
 
     setTimeout(function() {

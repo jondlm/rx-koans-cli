@@ -11,12 +11,12 @@ examples, it should help you learn some of the important features of [RxJs][rx]
 Usage:
 
     npm install
-    npm test
+    npm test # or `npm watch`
 
-This will run mocha tests and watch for file changes. You should get the tests
+This will run jest tests and watch for file changes. You should get the tests
 to pass by replacing `________` with the correct values. Once all the tests are
-passing, you win absolutely nothing, except for a bunch of grey dots and
-greater mental prowess.
+passing, you win absolutely nothing, except for a bunch of `PASS`es and greater
+mental prowess.
 
 ## Answers
 
