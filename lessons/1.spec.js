@@ -32,7 +32,7 @@ describe('lesson 1', function() {
     var strings = ['foo','bar'];
 
     Rx.Observable
-      .fromArray(strings)
+      .from(strings)
       .subscribe(function(x) { result = x; });
 
     assert.equal(result, ________);
@@ -43,7 +43,7 @@ describe('lesson 1', function() {
     var numbers = [1, 2, 3];
 
     Rx.Observable
-      .fromArray(numbers)
+      .from(numbers)
       .subscribe(function(x) { result += x; });
 
     assert.equal(result, ________);
