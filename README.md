@@ -12,6 +12,7 @@ Usage:
 
     npm install
     npm test # or `npm watch`
+    npm test -- lessons/1.spec.js
 
 This will run jest tests and watch for file changes. You should get the tests
 to pass by replacing `________` with the correct values. Once all the tests are
